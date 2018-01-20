@@ -1,2 +1,6 @@
 # Board Selector
-a simple board selector application.
+A simple board selector application.
+
+Instructions:
+
+To run: `npm run start`
