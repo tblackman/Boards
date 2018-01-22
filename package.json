@@ -11,12 +11,14 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "babel-preset-env": "^1.6.1",
-    "babel-preset-react": "^6.24.1",
     "react": "^16.2.0",
     "react-css-grid": "^2.0.0-0",
     "react-dom": "^16.2.0",
     "react-router-dom": "^4.2.2",
     "react-stylesheet": "^2.2.1"
+  },
+  "devDependencies": {
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1"
   }
 }
