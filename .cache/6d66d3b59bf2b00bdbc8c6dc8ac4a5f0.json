@@ -1,0 +1,1 @@
+{"dependencies":[{"name":"react-router/es/StaticRouter","loc":{"line":2,"column":25}}],"generated":{"js":"\"use strict\";Object.defineProperty(exports,\"__esModule\",{value:!0});var e=require(\"react-router/es/StaticRouter\"),t=r(e);function r(e){return e&&e.__esModule?e:{default:e}}exports.default=t.default;"},"hash":"c3f1518aee0eaf3e50dc7c047b33403e"}

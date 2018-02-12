@@ -1,0 +1,1 @@
+{"dependencies":[],"generated":{"js":"\"use strict\";\n\nObject.defineProperty(exports, \"__esModule\", {\n  value: true\n});\nvar availableBoards = exports.availableBoards = [{ name: 'Bonzer', price: 1000, waveSize: 7 }, { name: 'Black Beauty', price: 1200, waveSize: 10 }, { name: 'RocketNine', price: 1200, waveSize: 10 }];"},"hash":"93db3238f5439c6e9fa3619b974bd907"}

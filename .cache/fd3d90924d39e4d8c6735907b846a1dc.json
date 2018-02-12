@@ -1,0 +1,1 @@
+{"dependencies":[],"generated":{"js":"\"use strict\";Object.defineProperty(exports,\"__esModule\",{value:!0});var e=exports.availableBoards=[{name:\"Bonzer\",price:1e3,waveSize:7},{name:\"Black Beauty\",price:1200,waveSize:10},{name:\"RocketNine\",price:1200,waveSize:10}];"},"hash":"fe7e71961d73ad1b6257bb32c52f4fbe"}

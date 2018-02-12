@@ -1,0 +1,1 @@
+{"dependencies":[{"name":"react-router/es/Switch","loc":{"line":2,"column":19}}],"generated":{"js":"\"use strict\";Object.defineProperty(exports,\"__esModule\",{value:!0});var e=require(\"react-router/es/Switch\"),t=r(e);function r(e){return e&&e.__esModule?e:{default:e}}exports.default=t.default;"},"hash":"f0137c36e46e5478b598e9193ae1ef8c"}

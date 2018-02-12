@@ -1,13 +1,34 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { boards } from "./availableBoards";
+import { Link } from 'react-router-dom';
+import { Router, Route, Switch } from 'react-router'
+import BoardsRouter from './BoardsRouter';
+import { BrowserRouter } from 'react-router-dom'
+import { boards, graphColor } from "./availableBoards";
+import BoardDisplayer from './BoardDisplayer';
 import {
   divStyle,
   imgStyle,
   titleStyle,
   logoStyle,
+  formPlacement,
+  formPadding,
   formStyle
 } from "./indexStyle";
+
+class Main extends React.Component {
+  render() {
+    return (
+      <main>
+        <Switch>
+          <Route path='/boards' component={BoardsRouter} />
+        </Switch>
+      </main>
+    );
+  }
+}
+
+
 
 class ProductRow extends React.Component {
   render() {
@@ -15,39 +36,63 @@ class ProductRow extends React.Component {
     const name = product.name;
     const bimages = product.image;
     const bimagesLogo = product.imageLogo;
+    const boardsId= product.id;
 
     return (
       <div>
         <table>
           <tr>
-            <img src={bimages} style={imgStyle} />
+            <Link to={`/boards/${boardsId}`}>
+              <img src= {bimages} style={imgStyle} />
+            </Link>
           </tr>
           <tr>
-            <img src={bimagesLogo} style={logoStyle} />
+            <Link to={`/boards/${boardsId}`}>
+              <img src={bimagesLogo} style={logoStyle} />
+            </Link>
           </tr>
+          <Link to={`/boards/${boardsId}`}>
           <tr style={titleStyle}> {name}</tr>
+          </Link>
         </table>
       </div>
     );
   }
 }
+export default ProductRow;
+
+// Filter based on https://reactjs.org/docs/thinking-in-react.html
 
 class ProductTable extends React.Component {
   render() {
-    const waveSizeKnee = this.props.waveSizeKnee;
-    const waveSizeHead = this.props.waveSizeHead;
-    const waveSizeDouble = this.props.waveSizeDouble;
+    const wsbKnee = this.props.wsbKnee;
+    const wsbHead = this.props.wsbHead;
+    const wsbDouble = this.props.wsbDouble;
+    const waveBreakPoint = this.props.waveBreakPoint;
+    const waveBreakReef = this.props.waveBreakReef;
+    const waveBreakBeach = this.props.waveBreakBeach;
     const rows = [];
     this.props.products.forEach(product => {
-      if (waveSizeKnee && product.waveSize !== "Knee") {
+      if (wsbKnee && product.wsbKnee !== graphColor ) {
         return;
       }
 
-      if (waveSizeHead && product.waveSize !== "Head") {
+      if (wsbHead && product.wsbHead !== graphColor) {
         return;
       }
 
-      if (waveSizeDouble && product.waveSize !== "Double") {
+      if (wsbDouble && product.wsbDouble !== graphColor) {
+        return;
+      }
+      if (waveBreakPoint && product.waveBreakPoint !== graphColor ) {
+        return;
+      }
+
+      if (waveBreakReef && product.waveBreakReef !== graphColor) {
+        return;
+      }
+
+      if (waveBreakBeach && product.waveBreakBeach !== graphColor) {
         return;
       }
       rows.push(<ProductRow product={product} key={product.name} />);
@@ -63,6 +108,17 @@ class SearchBar extends React.Component {
     this.handleOnKneeChange = this.handleOnKneeChange.bind(this);
     this.handleOnHeadChange = this.handleOnHeadChange.bind(this);
     this.handleOnDoubleChange = this.handleOnDoubleChange.bind(this);
+    this.handleOnPointChange = this.handleOnPointChange.bind(this);
+    this.handleOnReefChange = this.handleOnReefChange.bind(this);
+    this.handleOnBeachChange = this.handleOnBeachChange.bind(this);
+    this.state = {
+      isHidden: true
+    }
+  }
+  toggleHidden () {
+    this.setState({
+      isHidden: !this.state.isHidden
+    })
   }
 
   handleOnKneeChange(e) {
@@ -76,9 +132,20 @@ class SearchBar extends React.Component {
   handleOnDoubleChange(e) {
     this.props.onDoubleChange(e.target.checked);
   }
+  handleOnPointChange(e) {
+    this.props.onPointChange(e.target.checked);
+  }
+
+  handleOnReefChange(e) {
+    this.props.onReefChange(e.target.checked);
+  }
+
+  handleOnBeachChange(e) {
+    this.props.onBeachChange(e.target.checked);
+  }
 
   render() {
-    return (
+    const Child = () => (
       <div>
         <table style={formStyle}>
           <tr>
@@ -89,32 +156,74 @@ class SearchBar extends React.Component {
           <form>
             <tr>
               <td>
-                <input
-                  type="checkbox"
-                  checked={this.props.waveSizeKnee}
-                  onChange={this.handleOnKneeChange}
-                />
-                Knee High
+              <input
+                type="checkbox" id="box-1"
+                checked={this.props.wsbKnee}
+                onChange={this.handleOnKneeChange}
+              />
+              <label for="box-1">Knee High</label>
               </td>
-              <td>
-                <input
-                  type="checkbox"
-                  checked={this.props.waveSizeHead}
-                  onChange={this.handleOnHeadChange}
-                />
-                Head High
+              <td style= {formPadding}>
+              <input
+                type="checkbox" id="box-2"
+                checked={this.props.wsbHead}
+                onChange={this.handleOnHeadChange}
+              />
+              <label for="box-2">Head High</label>
               </td>
-              <td>
-                <input
-                  type="checkbox"
-                  checked={this.props.waveSizeDouble}
-                  onChange={this.handleOnDoubleChange}
-                />
-                Double Head High
+              <td style= {formPadding}>
+              <input
+                type="checkbox" id="box-3"
+                checked={this.props.wsbDouble}
+                onChange={this.handleOnDoubleChange}
+              />
+              <label for="box-3">Double Head High</label>
               </td>
             </tr>
           </form>
         </table>
+        <table style={formStyle}>
+          <tr>
+            <td> Break Type</td>
+          </tr>
+        </table>
+        <table style={formStyle}>
+          <form>
+            <tr>
+              <td>
+                <input
+                  type="checkbox" id="box-4"
+                  checked={this.props.waveBreakPoint}
+                  onChange={this.handleOnPointChange}
+                />
+                <label for="box-4">PointBreak</label>
+              </td>
+              <td style= {formPadding}>
+                <input
+                  type="checkbox" id="box-5"
+                  checked={this.props.waveBreakReef}
+                  onChange={this.handleOnReefChange}
+                />
+                <label for="box-5">Reef</label>
+              </td>
+              <td style= {formPadding}>
+                <input
+                  type="checkbox" id="box-6"
+                  checked={this.props.waveBreakBeach}
+                  onChange={this.handleOnBeachChange}
+                />
+                <label for="box-6">Beach</label>
+              </td>
+            </tr>
+          </form>
+        </table>
+      </div>
+)
+
+    return (
+      <div style={formPlacement}>
+        <span className="btn btn-three" onClick={this.toggleHidden.bind(this)}>BOARD SELECTOR</span>
+       {!this.state.isHidden && <Child />}
       </div>
     );
   }
@@ -128,49 +237,81 @@ class FilterableProductTable extends React.Component {
     this.handleOnKneeChange = this.handleOnKneeChange.bind(this);
     this.handleOnHeadChange = this.handleOnHeadChange.bind(this);
     this.handleOnDoubleChange = this.handleOnDoubleChange.bind(this);
+    this.handleOnPointChange = this.handleOnPointChange.bind(this);
+    this.handleOnReefChange = this.handleOnReefChange.bind(this);
+    this.handleOnBeachChange = this.handleOnBeachChange.bind(this);
   }
 
-  handleOnKneeChange(waveSizeKnee) {
+  handleOnKneeChange(wsbKnee) {
     this.setState({
-      waveSizeKnee: waveSizeKnee
+      wsbKnee: wsbKnee
     });
   }
 
-  handleOnHeadChange(waveSizeHead) {
+  handleOnHeadChange(wsbHead) {
     this.setState({
-      waveSizeHead: waveSizeHead
+      wsbHead: wsbHead
     });
   }
 
-  handleOnDoubleChange(waveSizeDouble) {
+  handleOnDoubleChange(wsbDouble) {
     this.setState({
-      waveSizeDouble: waveSizeDouble
+      wsbDouble: wsbDouble
+    });
+  }
+  handleOnPointChange(waveBreakPoint) {
+    this.setState({
+      waveBreakPoint: waveBreakPoint
+    });
+  }
+
+  handleOnReefChange(waveBreakReef) {
+    this.setState({
+      waveBreakReef: waveBreakReef
+    });
+  }
+
+  handleOnBeachChange(waveBreakBeach) {
+    this.setState({
+      waveBreakBeach: waveBreakBeach
     });
   }
 
   render() {
     return (
       <div>
+        <Main/>
         <SearchBar
-          waveSizeKnee={this.state.waveSizeKnee}
-          waveSizeHead={this.state.waveSizeHead}
-          waveSizeDouble={this.state.waveSizeDouble}
+          wsbKnee={this.state.wsbKnee}
+          wsbHead={this.state.wsbHead}
+          wsbDouble={this.state.wsbDouble}
           onKneeChange={this.handleOnKneeChange}
           onHeadChange={this.handleOnHeadChange}
           onDoubleChange={this.handleOnDoubleChange}
+          waveBreakPoint={this.state.waveBreakPoint}
+          waveBreakReef={this.state.waveBreakReef}
+          waveBreakBeach={this.state.waveBreakBeach}
+          onPointChange={this.handleOnPointChange}
+          onReefChange={this.handleOnReefChange}
+          onBeachChange={this.handleOnBeachChange}
         />
         <ProductTable
           products={this.props.products}
-          waveSizeKnee={this.state.waveSizeKnee}
-          waveSizeHead={this.state.waveSizeHead}
-          waveSizeDouble={this.state.waveSizeDouble}
+          wsbKnee={this.state.wsbKnee}
+          wsbHead={this.state.wsbHead}
+          wsbDouble={this.state.wsbDouble}
+          waveBreakPoint={this.state.waveBreakPoint}
+          waveBreakReef={this.state.waveBreakReef}
+          waveBreakBeach={this.state.waveBreakBeach}
         />
       </div>
     );
   }
 }
 
-ReactDOM.render(
-  <FilterableProductTable products={boards} />,
+ReactDOM.render((
+  <BrowserRouter>
+    <FilterableProductTable products={boards} />
+  </BrowserRouter>),
   document.getElementById("root")
 );
