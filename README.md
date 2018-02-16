@@ -1,5 +1,5 @@
 # Board Selector
-A simple board selector application.
+A simple product selector application with react.
 
 Instructions:
 
