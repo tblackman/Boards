@@ -125,3 +125,11 @@ a:link {
 a:visited {
     text-decoration: none;
   }
+
+.boardDisplayer {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-gap: 3px;
+  text-align: center;
+  margin: 2% 4% 0% 4%;
+}

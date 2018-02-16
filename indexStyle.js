@@ -49,15 +49,6 @@ export const formPadding = {
   paddingLeft: '10px'
 }
 
-// Main styling for board displayer page
-export const displayerContainer = {
-  display: 'grid',
-  gridTemplateColumns: '1fr 1fr 1fr',
-  gridGap: '3px',
-  textAlign: 'center',
-  margin: '2% 4% 0% 4%'
-}
-
 export const displayerLogoStyle = {
   height: 50,
   objectFit:'scale-down'

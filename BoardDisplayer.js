@@ -7,7 +7,6 @@ import {
   titleStyle,
   logoStyle,
   formStyle,
-  displayerContainer,
   displayerLogoStyle,
   displayerDescription,
   displayerBarContainer,
@@ -77,7 +76,7 @@ class BoardDisplayer extends React.Component {
       return <div>Sorry, but the board was not found</div>
     }
     return (
-      <div style={displayerContainer}>
+      <div className="boardDisplayer">
           <div>
             <tr>
               <img src={viewingBoard.imageLogo} style ={displayerLogoStyle} />
